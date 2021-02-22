@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_so.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bjebedia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/26 15:43:53 by bjebedia          #+#    #+#             */
+/*   Updated: 2020/10/26 19:10:19 by bjebedia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "validate.h"
+
+int	ft_check_so(t_val *val, char *line)
+{
+	int	i;
+	int fd;
+
+	i = 0;
+	ft_skip_spaces(line, &i);
+	i = i + 2;
+	ft_skip_spaces(line, &i);
+	if (line[i] == '.')
+		g_adr.adr_so = ft_strdup(&line[i]);
+	else
+		return (-1);
+	fd = open(g_adr.adr_so, O_RDONLY);
+	if (fd == -1)
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	val->ishere_so++;
+	return (0);
+}
